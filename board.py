@@ -20,3 +20,12 @@ class Board:
                 block += ' '
             block += '\n'
         return block
+
+    def getsquare(self, sqCoord):
+        if type(sqCoord) != str:
+            print('Square must be a string')
+            return -1
+        if not ('A' <= sqCoord[0] <= 'I' or '1' <= sqCoord[1] <= '9'):
+            print('Square must be a valid coordinate')
+            return -1
+        return self.sudokuBoard[sqCoord]
