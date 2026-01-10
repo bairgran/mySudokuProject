@@ -9,6 +9,9 @@ class Board:
 
     # textual grid output.
     def __str__(self):
+        return self.sudokuBoard.values()
+
+    def displayboard(self):
         block = ''
         for r in self.rows:
             if r == 'D' or r == 'G':
