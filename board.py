@@ -22,7 +22,7 @@ class Board:
                 block += self.sudokuBoard[r+c] if self.sudokuBoard[r+c] != '0' else ' '
                 block += ' '
             block += '\n'
-        return block
+        print(block)
 
     def getsquare(self, sqCoord):
         if type(sqCoord) != str:
