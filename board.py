@@ -1,6 +1,7 @@
 class Board:
 
     sudokuBoard = {}
+    solution = {}
     rows = 'ABCDEFGHI'
     cols = '123456789'
 
