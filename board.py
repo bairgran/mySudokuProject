@@ -23,6 +23,10 @@ class Board:
     """
 
     def __init__(self):
+        """
+        Paramters
+        ---------
+        """
         self.rows = 'ABCDEFGHI'
         self.cols = '123456789'
         self.sudokuBoard = {r+c:'0' for r in self.rows for c in self.cols}
