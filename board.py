@@ -22,13 +22,11 @@ class Board:
         returns the value associated with the square at coordinate sqCoord in the sudoku board.
     """
 
-    sudokuBoard = {}
-    solution = {}
-    rows = 'ABCDEFGHI'
-    cols = '123456789'
-
     def __init__(self):
+        self.rows = 'ABCDEFGHI'
+        self.cols = '123456789'
         self.sudokuBoard = {r+c:'0' for r in self.rows for c in self.cols}
+        self.solution = {}
 
     # textual grid output.
     def __str__(self):
