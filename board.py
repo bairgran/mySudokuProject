@@ -1,4 +1,26 @@
 class Board:
+    """Abstract class Board provides some of the basic sudoku functionality.
+
+    ...
+
+    Attributes
+    ----------
+    sudokuBoard : dict
+        Dictionary representing a 9x9 grid with axes [A-I] and [1-9].
+    solution : dict
+        Dictionary containing the solution of the sudoku board in the same format.
+    rows : str
+        Row names concatenated into a string.
+    cols : str
+        Column names concatenated into a string.
+
+    Methods
+    -------
+    displayboard()
+        Prints a textual representation of the current sudoku board.
+    getsquare(sqCoord)
+        returns the value associated with the square at coordinate sqCoord in the sudoku board.
+    """
 
     sudokuBoard = {}
     solution = {}
