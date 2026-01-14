@@ -59,7 +59,7 @@ class Board:
         return True
 
     def isValidValue(self, value) -> bool:
-        if not 1 <= value <= 9:
+        if not '1' <= value <= '9':
             return False
         return True
 
