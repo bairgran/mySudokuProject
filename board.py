@@ -59,10 +59,6 @@ class Board:
         return True
 
     def getsquare(self, sqCoord: str):
-        if type(sqCoord) != str:
-            print('Square must be a string')
-            return -1
-        if not ('A' <= sqCoord[0] <= 'I' or '1' <= sqCoord[1] <= '9'):
-            print('Square must be a valid coordinate')
+        if not self.isValidCoordinate(sqCoord):
             return -1
         return self.sudokuBoard[sqCoord]
