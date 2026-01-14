@@ -73,3 +73,8 @@ class Board:
             return -1
 
         self.sudokuBoard[sqCoord] = value
+
+    def delsquare(self,sqCoord: str):
+        if not self.isValidCoordinate(sqCoord):
+            return -1
+        self.sudokuBoard[sqCoord] = '0'
