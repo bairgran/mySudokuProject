@@ -58,6 +58,11 @@ class Board:
             return False
         return True
 
+    def isValidValue(self, value) -> bool:
+        if not 1 <= value <= 9:
+            return False
+        return True
+
     def getsquare(self, sqCoord: str):
         if not self.isValidCoordinate(sqCoord):
             return -1
