@@ -49,7 +49,16 @@ class Board:
             block += '\n'
         print(block)
 
-    def getsquare(self, sqCoord):
+    def isValidCoordinate(self, sqCoord) -> bool:
+        if type(sqCoord) != str:
+            print('Square must be a string')
+            return False
+        if not ('A' <= sqCoord[0] <= 'I' or '1' <= sqCoord[1] <= '9'):
+            print('Square must be a valid coordinate')
+            return False
+        return True
+
+    def getsquare(self, sqCoord: str):
         if type(sqCoord) != str:
             print('Square must be a string')
             return -1
