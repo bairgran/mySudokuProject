@@ -67,3 +67,9 @@ class Board:
         if not self.isValidCoordinate(sqCoord):
             return -1
         return self.sudokuBoard[sqCoord]
+
+    def fillsquare(self, sqCoord: str, value: str):
+        if not self.isValidCoordinate(sqCoord) or not self.isValidValue(value):
+            return -1
+
+        self.sudokuBoard[sqCoord] = value
