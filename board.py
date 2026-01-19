@@ -32,7 +32,7 @@ class Board:
         self.sudokuBoard = {r+c:'0' for r in self.rows for c in self.cols}
         self.solution = {}
 
-    # textual grid output.
+
     def __str__(self):
         return self.sudokuBoard.values()
 
