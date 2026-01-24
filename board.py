@@ -49,32 +49,39 @@ class Board:
             block += '\n'
         print(block)
 
-    def isValidCoordinate(self, sqCoord) -> bool:
-        if type(sqCoord) != str:
-            print('Square must be a string')
-            return False
-        if not ('A' <= sqCoord[0] <= 'I' or '1' <= sqCoord[1] <= '9'):
-            print('Square must be a valid coordinate')
-            return False
-        return True
+    def validateCoord(self, coord: str):
+        if not ('A' <= coord[0] <= 'I' and '1' <= coord[1] <= '9'):
+            raise ValueError('Square must be a valid coordinate')
 
-    def isValidValue(self, value) -> bool:
+    def validateValue(self, value: str):
         if not '1' <= value <= '9':
-            return False
-        return True
+            raise ValueError('Entry must be a valid value')
+
+    def validateGameEntry(self, entryTup: tuple[str, str]):
+        self.validateCoord(entryTup[0])
+        self.validateValue(entryTup[1])
 
     def getsquare(self, sqCoord: str):
-        if not self.isValidCoordinate(sqCoord):
-            return -1
-        return self.sudokuBoard[sqCoord]
+        try:
+            self.validateCoord(sqCoord)
+        except ValueError:
+            pass
+        else:
+            return self.sudokuBoard[sqCoord]
 
     def fillsquare(self, sqCoord: str, value: str):
-        if not self.isValidCoordinate(sqCoord) or not self.isValidValue(value):
-            return -1
+        try:
+            self.validateGameEntry((sqCoord, value))
+        except ValueError:
+            pass
+        else:
+            self.sudokuBoard[sqCoord] = value
 
-        self.sudokuBoard[sqCoord] = value
 
     def delsquare(self,sqCoord: str):
-        if not self.isValidCoordinate(sqCoord):
-            return -1
-        self.sudokuBoard[sqCoord] = '0'
+        try:
+            self.validateCoord(sqCoord)
+        except ValueError:
+            pass
+        else:
+            self.sudokuBoard[sqCoord] = '0'
