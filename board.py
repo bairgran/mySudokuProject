@@ -2,7 +2,7 @@ import requests
 import json
 
 class Board:
-    """Board contains all the logic for a game of sudoku.
+    """A sudoku game board.
 
     Attributes:
         rows (str): Ordered and concatenated string of all the row names of the sudoku board.
@@ -41,10 +41,7 @@ class Board:
             for c in range(len(grid[r])):
                 valuesToFile[self.rows[r]+self.cols[c]] = f'{grid[r][c]}'
                 solutionToFile[self.rows[r]+self.cols[c]] = f'{solut[r][c]}'
-        payloadForFile = {
-            "values": valuesToFile,
-            "solution": solutionToFile
-        }
+        payloadForFile = self.createFilePayload(valuesToFile, solutionToFile) # TODO: use saveBoard to reduce repeat code.
         with open('scratch.json', 'w') as f:
             json.dump(payloadForFile, f, indent=4)
 
@@ -79,7 +76,7 @@ class Board:
         self.validateCoord(entryTup[0])
         self.validateValue(entryTup[1])
 
-    def getsquare(self, sqCoord: str):
+    def getsquare(self, sqCoord: str): # TODO: This function should not mess with the error. Call validate and return the value. No try except.
         try:
             self.validateCoord(sqCoord)
         except ValueError:
