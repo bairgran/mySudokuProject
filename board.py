@@ -24,11 +24,9 @@ class Board:
         self.solution = {}
 
     def __str__(self):
-        iter = self.sudokuBoard.values()
-        retStr = ''
-        for x in iter:
-            retStr += x
-        return retStr
+        values = self.sudokuBoard.values()
+        retStr = ''.join(values)
+        return f'{retStr}'
 
     def dosukuInit(self):
         url_api = "https://sudoku-api.vercel.app/api/dosuku"
