@@ -116,3 +116,8 @@ class Board:
             pass
         else:
             self.sudokuBoard[sqCoord] = '0'
+
+    def checkBoard(self):
+        if self.solution == self.sudokuBoard:
+            return True
+        return False
