@@ -64,13 +64,17 @@ class Board:
             json.dump(payload, f, indent=4)
 
     def displayboard(self):
-        block = ''
+        header = self.cols.partition('456')
+        header = '|'.join(header)
+        block = f'  {' '.join(header)}\n'
         for r in self.rows:
             if r == 'D' or r == 'G':
-                block += '- - - + - - - + - - -\n'
+                block += '  - - - + - - - + - - -\n'
             for c in self.cols:
                 if c == '4' or c == '7':
                     block += '| '
+                elif c == '1':
+                    block += f'{r} '
                 block += self.sudokuBoard[r+c] if self.sudokuBoard[r+c] != '0' else ' '
                 block += ' '
             block += '\n'
