@@ -69,11 +69,11 @@ class Board:
 
     def validateCoord(self, coord: str):
         if not ('A' <= coord[0] <= 'I' and '1' <= coord[1] <= '9'):
-            raise ValueError('Square must be a valid coordinate')
+            raise ValueError('Invalid Square Coordinate')
 
     def validateValue(self, value: str):
         if not '1' <= value <= '9':
-            raise ValueError('Entry must be a valid value')
+            raise ValueError('Invalid Game Value')
 
     def validateGameEntry(self, entryTup: tuple[str, str]):
         self.validateCoord(entryTup[0])
