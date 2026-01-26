@@ -42,7 +42,7 @@ class Board:
             retStr += x
         return retStr
 
-    def dusokuInit(self):
+    def dosukuInit(self):
         url_api = "https://sudoku-api.vercel.app/api/dosuku"
         query = {'query': '{newboard(limit:1){grids{value,solution}}}'}
         r = requests.get(url_api, params=query)
