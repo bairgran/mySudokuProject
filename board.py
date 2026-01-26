@@ -8,14 +8,15 @@ class Board:
         rows (str): Ordered and concatenated string of all the row names of the sudoku board.
         cols (str): Ordered and concatenated string of all the column names of the sudoku board.
         sudokuBoard (dict): Represents the state of the sudoku board where each entry is formatted coordinate (str): value (str).
+            An empty square is stored as '0'.
         solution (dict): Holds the completed solution of the sudoku board in an identical format to sudokuBoard.
 
     """
 
     def __init__(self):
         """
-        Paramters
-        ---------
+        Parameters:
+
         """
         self.rows = 'ABCDEFGHI'
         self.cols = '123456789'
