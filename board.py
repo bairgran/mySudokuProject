@@ -1,3 +1,6 @@
+import requests
+import json
+
 class Board:
     """Abstract class Board provides some of the basic sudoku functionality.
 
@@ -33,8 +36,31 @@ class Board:
         self.solution = {}
 
 
-    def __str__(self):
-        return self.sudokuBoard.values()
+    def dusokuInit(self):
+        url_api = "https://sudoku-api.vercel.app/api/dosuku"
+        query = {'query': '{newboard(limit:1){grids{value,solution}}}'}
+        r = requests.get(url_api, params=query)
+        data = r.json()
+        grid = data['newboard']['grids'][0]['value']
+        solut = data['newboard']['grids'][0]['solution']
+        valuesToFile = {}
+        solutionToFile = {}
+        for r in range(len(grid)):
+            for c in range(len(grid[r])):
+                valuesToFile[self.rows[r]+self.cols[c]] = f'{grid[r][c]}'
+                solutionToFile[self.rows[r]+self.cols[c]] = f'{solut[r][c]}'
+        payloadForFile = {
+            "values": valuesToFile,
+            "solution": solutionToFile
+        }
+        with open('scratch.json', 'w') as f:
+            json.dump(payloadForFile, f, indent=4)
+
+    def loadBoard(self):
+        with open('scratch.json', 'r') as f:
+            filecontents = json.loads(f.read())
+            self.sudokuBoard = filecontents['values']
+            self.solution = filecontents['solution']
 
     def displayboard(self):
         block = ''
