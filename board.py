@@ -2,27 +2,14 @@ import requests
 import json
 
 class Board:
-    """Abstract class Board provides some of the basic sudoku functionality.
+    """Board contains all the logic for a game of sudoku.
 
-    ...
+    Attributes:
+        rows (str): Ordered and concatenated string of all the row names of the sudoku board.
+        cols (str): Ordered and concatenated string of all the column names of the sudoku board.
+        sudokuBoard (dict): Represents the state of the sudoku board where each entry is formatted coordinate (str): value (str).
+        solution (dict): Holds the completed solution of the sudoku board in an identical format to sudokuBoard.
 
-    Attributes
-    ----------
-    sudokuBoard : dict
-        Dictionary representing a 9x9 grid with axes [A-I] and [1-9].
-    solution : dict
-        Dictionary containing the solution of the sudoku board in the same format.
-    rows : str
-        Row names concatenated into a string.
-    cols : str
-        Column names concatenated into a string.
-
-    Methods
-    -------
-    displayboard()
-        Prints a textual representation of the current sudoku board.
-    getsquare(sqCoord)
-        returns the value associated with the square at coordinate sqCoord in the sudoku board.
     """
 
     def __init__(self):
