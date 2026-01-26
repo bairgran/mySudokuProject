@@ -28,6 +28,13 @@ class Board:
         retStr = ''.join(values)
         return f'{retStr}'
 
+    def createFilePayload(self, values: dict, solution: dict) -> dict:
+        payload = {
+            "values": values,
+            "solution": solution
+        }
+        return payload
+
     def dosukuInit(self):
         url_api = "https://sudoku-api.vercel.app/api/dosuku"
         query = {'query': '{newboard(limit:1){grids{value,solution}}}'}
@@ -50,6 +57,11 @@ class Board:
             filecontents = json.loads(f.read())
             self.sudokuBoard = filecontents['values']
             self.solution = filecontents['solution']
+
+    def saveBoard(self):
+        payload = self.createFilePayload(self.sudokuBoard, self.solution)
+        with open('scratch.json', 'w') as f:
+            json.dump(payload, f, indent=4)
 
     def displayboard(self):
         block = ''
