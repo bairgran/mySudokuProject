@@ -35,6 +35,12 @@ class Board:
         self.sudokuBoard = {r+c:'0' for r in self.rows for c in self.cols}
         self.solution = {}
 
+    def __str__(self):
+        iter = self.sudokuBoard.values()
+        retStr = ''
+        for x in iter:
+            retStr += x
+        return retStr
 
     def dusokuInit(self):
         url_api = "https://sudoku-api.vercel.app/api/dosuku"
