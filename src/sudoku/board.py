@@ -23,19 +23,19 @@ class Board:
         self.sudokuBoard = {r+c:'0' for r in self.rows for c in self.cols}
         self.solution = {}
 
-    def __str__(self):
+    def __str__(self): # TODO: documentation
         values = self.sudokuBoard.values()
         retStr = ''.join(values)
         return f'{retStr}'
 
-    def createFilePayload(self, values: dict, solution: dict) -> dict:
+    def createFilePayload(self, values: dict, solution: dict) -> dict: # TODO: documentation
         payload = {
             "values": values,
             "solution": solution
         }
         return payload
 
-    def dosukuInit(self):
+    def dosukuInit(self): # TODO: documentation
         url_api = "https://sudoku-api.vercel.app/api/dosuku"
         query = {'query': '{newboard(limit:1){grids{value,solution}}}'}
         r = requests.get(url_api, params=query)
@@ -52,18 +52,18 @@ class Board:
         with open('scratch.json', 'w') as f:
             json.dump(payloadForFile, f, indent=4)
 
-    def loadBoard(self):
+    def loadBoard(self): # TODO: documentation
         with open('scratch.json', 'r') as f:
             filecontents = json.loads(f.read())
             self.sudokuBoard = filecontents['values']
             self.solution = filecontents['solution']
 
-    def saveBoard(self):
+    def saveBoard(self): # TODO: documentation
         payload = self.createFilePayload(self.sudokuBoard, self.solution)
         with open('scratch.json', 'w') as f:
             json.dump(payload, f, indent=4)
 
-    def displayboard(self):
+    def displayboard(self): # TODO: documentation
         header = self.cols.partition('456')
         header = '|'.join(header)
         block = f'  {' '.join(header)}\n'
@@ -80,15 +80,15 @@ class Board:
             block += '\n'
         print(block)
 
-    def validateCoord(self, coord: str):
+    def validateCoord(self, coord: str): # TODO: documentation
         if not ('A' <= coord[0] <= 'I' and '1' <= coord[1] <= '9'):
             raise ValueError('Invalid Square Coordinate')
 
-    def validateValue(self, value: str):
+    def validateValue(self, value: str): # TODO: documentation
         if not '1' <= value <= '9':
             raise ValueError('Invalid Game Value')
 
-    def validateGameEntry(self, entryTup: tuple[str, str]):
+    def validateGameEntry(self, entryTup: tuple[str, str]): # TODO: documentation
         self.validateCoord(entryTup[0])
         self.validateValue(entryTup[1])
 
@@ -100,7 +100,7 @@ class Board:
         else:
             return self.sudokuBoard[sqCoord]
 
-    def fillsquare(self, sqCoord: str, value: str):
+    def fillsquare(self, sqCoord: str, value: str): # TODO: documentation
         try:
             self.validateGameEntry((sqCoord, value))
         except ValueError:
@@ -109,7 +109,7 @@ class Board:
             self.sudokuBoard[sqCoord] = value
 
 
-    def delsquare(self,sqCoord: str):
+    def delsquare(self,sqCoord: str): # TODO: documentation
         try:
             self.validateCoord(sqCoord)
         except ValueError:
@@ -117,7 +117,7 @@ class Board:
         else:
             self.sudokuBoard[sqCoord] = '0'
 
-    def checkBoard(self):
+    def checkBoard(self): # TODO: documentation
         if self.solution == self.sudokuBoard:
             return True
         return False
