@@ -25,8 +25,8 @@ class Game:
         solutionToFile = {}
         for r in range(len(grid)):
             for c in range(len(grid[r])):
-                valuesToFile[self.rows[r]+self.cols[c]] = f'{grid[r][c]}'
-                solutionToFile[self.rows[r]+self.cols[c]] = f'{solut[r][c]}'
+                valuesToFile[self.gameboard.rows[r]+self.gameboard.cols[c]] = f'{grid[r][c]}'
+                solutionToFile[self.gameboard.rows[r]+self.gameboard.cols[c]] = f'{solut[r][c]}'
         payloadForFile = self.createFilePayload(valuesToFile, solutionToFile) # TODO: use saveBoard to reduce repeat code.
         with open('scratch.json', 'w') as f:
             json.dump(payloadForFile, f, indent=4)
@@ -34,16 +34,16 @@ class Game:
     def loadBoard(self): # TODO: documentation
         with open('scratch.json', 'r') as f:
             filecontents = json.loads(f.read())
-            self.sudokuBoard = filecontents['values']
+            self.gameboard.sudokuBoard = filecontents['values']
             self.solution = filecontents['solution']
 
     def saveBoard(self): # TODO: documentation
-        payload = self.createFilePayload(self.sudokuBoard, self.solution)
+        payload = self.createFilePayload(self.gameboard.sudokuBoard, self.gameboard.solution)
         with open('scratch.json', 'w') as f:
             json.dump(payload, f, indent=4)
 
     
     def checkBoard(self): # TODO: documentation
-        if self.solution == self.sudokuBoard:
+        if self.gameboard.solution == self.gameboard.sudokuBoard:
             return True
         return False
