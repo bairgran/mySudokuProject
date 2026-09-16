@@ -14,6 +14,10 @@ Typical usage:
 import requests
 import json
 
+
+SAVE_FILE = "scratch.json"
+
+
 class Sudoku:
     """Sudoku game.
 
@@ -117,3 +121,13 @@ def _create_game_data(init_type: str = "dosuku") -> Board: # TODO: Alternate dat
         ret_board.set_board(grid)
         ret_board.set_solution(solut)
     return ret_board
+
+
+def _write_to_save(board_state: Board) -> None:
+    """Write board_state to output file.
+
+    Args:
+        board_state: Board object with sudoku_board and solution variables.
+    """
+    with open(SAVE_FILE, 'w') as f:
+        json.dump(board_state.get_state(), f, indent=4)
