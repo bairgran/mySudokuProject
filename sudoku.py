@@ -41,6 +41,10 @@ class Sudoku:
     def start(self):
         pass
 
+    def new_game(self):
+        """Create and load new game."""
+        _write_to_save(_create_game_data())
+        self.load_game()
 
     def load_game(self):
         """Load existing game."""
