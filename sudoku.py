@@ -37,9 +37,13 @@ class Sudoku:
     def start(self):
         pass
 
-    def create_game(self, init_type: str = "dosuku") -> None:
-        """
-        Parameters:
+    def create_game_data(self, init_type: str = "dosuku") -> None: # TODO: Alternate data creation methods.
+        """Create game save data.
+
+        Creates game save data by the desired method. Defaults to pulling data from Dosuku API.
+
+        Args:
+            init_type: A string representing the desired creation method.
         """
         if init_type == "dosuku":
             url_api = "https://sudoku-api.vercel.app/api/dosuku"
