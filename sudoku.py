@@ -43,7 +43,11 @@ class Sudoku:
 
 
     def load_game(self):
-        pass
+        """Load existing game."""
+        with open(SAVE_FILE, 'r') as f:
+            data = json.loads(f.read())
+            self.board.sudoku_board = data["values"]
+            self.board.solution = data["solution"]
 
     def save_game(self):
         pass
