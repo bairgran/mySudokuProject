@@ -37,25 +37,6 @@ class Sudoku:
     def start(self):
         pass
 
-    def create_game_data(self, init_type: str = "dosuku") -> None: # TODO: Alternate data creation methods.
-        """Create game save data.
-
-        Creates game save data by the desired method. Defaults to pulling data from Dosuku API.
-
-        Args:
-            init_type: A string representing the desired creation method.
-        """
-        if init_type == "dosuku":
-            url_api = "https://sudoku-api.vercel.app/api/dosuku"
-            query = {'query': '{newboard(limit:1){grids{value,solution}}}'}
-            r = requests.get(url_api, params=query)
-            data = r.json()
-            grid = data['newboard']['grids'][0]['value']
-            solut = data['newboard']['grids'][0]['solution']
-            self.board.set_board(grid)
-            self.board.set_solution(solut)
-            with open('scratch.json', 'w') as f:
-                json.dump(self.board.get_state(), f, indent=4)
 
     def load_game(self):
         pass
@@ -115,3 +96,24 @@ class Board:
 
     def is_solved(self) -> bool:
         return self.sudoku_board == self.solution
+    
+
+def _create_game_data(init_type: str = "dosuku") -> Board: # TODO: Alternate data creation methods.
+    """Create game save data.
+
+    Creates game save data by the desired method. Defaults to pulling data from Dosuku API.
+
+    Args:
+        init_type: A string representing the desired creation method.
+    """
+    ret_board = Board.board()
+    if init_type == "dosuku":
+        url_api = "https://sudoku-api.vercel.app/api/dosuku"
+        query = {'query': '{newboard(limit:1){grids{value,solution}}}'}
+        r = requests.get(url_api, params=query)
+        data = r.json()
+        grid = data['newboard']['grids'][0]['value']
+        solut = data['newboard']['grids'][0]['solution']
+        ret_board.set_board(grid)
+        ret_board.set_solution(solut)
+    return ret_board
