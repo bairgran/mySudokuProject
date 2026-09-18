@@ -100,10 +100,10 @@ class Board:
     def get_state(self) -> dict:
         return {"values": self.sudoku_board, "solution": self.solution}
 
-    def write_tile(self, coord: str, value: str):
+    def write_tile(self, coord: str, value: str) -> None:
         self.sudoku_board[coord] = value
 
-    def del_tile(self, coord: str):
+    def del_tile(self, coord: str) -> None:
         self.sudoku_board[coord] = "0"
 
     def is_solved(self) -> bool:
