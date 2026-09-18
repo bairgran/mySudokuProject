@@ -104,7 +104,7 @@ class Board:
         self.sudoku_board[coord] = value
 
     def del_tile(self, coord: str):
-        pass
+        self.sudoku_board[coord] = "0"
 
     def is_solved(self) -> bool:
         return self.sudoku_board == self.solution
