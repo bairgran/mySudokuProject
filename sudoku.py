@@ -101,7 +101,7 @@ class Board:
         return {"values": self.sudoku_board, "solution": self.solution}
 
     def write_tile(self, coord: str, value: str):
-        pass
+        self.sudoku_board[coord] = value
 
     def del_tile(self, coord: str):
         pass
