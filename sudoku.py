@@ -172,7 +172,7 @@ def _create_game_data(init_type: str = 'dosuku') -> Board:
     if init_type == 'dosuku':
         url_api = 'https://sudoku-api.vercel.app/api/dosuku'
         query = {'query': '{newboard(limit:1){grids{value,solution}}}'}
-        r = requests.get(url_api, params=query)
+        r = requests.get(url_api, params=query, timeout=5)
         data = r.json()
         grid = data['newboard']['grids'][0]['value']
         solut = data['newboard']['grids'][0]['solution']
