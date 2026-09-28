@@ -14,7 +14,7 @@ import requests
 import json
 
 
-SAVE_FILE = "scratch.json"
+SAVE_FILE = 'scratch.json'
 
 
 class Sudoku:
@@ -29,9 +29,12 @@ class Sudoku:
         """Initializes a Board object to be used with this instance."""
         self.board = Board()
 
-    # start() is the "main menu" entry point. Enters loop where possible actions are new, load, exit, and start(if board). 
-    # create_game() creates a new board currently through dosuku API. Board is output to scratch.json and held in self.board.
-    # load_game() loads the board state (if any) from scratch.json into self.board.
+    # start() is the "main menu" entry point. Enters loop where possible
+    #   actions are new, load, exit, and start(if board).
+    # create_game() creates a new board currently through dosuku API.
+    #   Board is output to scratch.json and held in self.board.
+    # load_game() loads the board state (if any) from scratch.json into
+    #   self.board.
     # If self.board is loaded, option to start is selected
     # run() enters the game loop if a board is loaded.
     # exit() returns
@@ -43,7 +46,8 @@ class Sudoku:
     def new_game(self):
         """Create new puzzle.
         
-        Generates new game data, writes data to SAVE_FILE, and loads newly created game data.
+        Generates new game data, writes data to SAVE_FILE,
+        and loads newly created game data.
         Overwrites any data contained in SAVE_FILE.
         """
         _write_to_save(_create_game_data())
@@ -56,8 +60,8 @@ class Sudoku:
         """
         with open(SAVE_FILE, 'r') as f:
             data = json.loads(f.read())
-            self.board.sudoku_board = data["values"]
-            self.board.solution = data["solution"]
+            self.board.sudoku_board = data['values']
+            self.board.solution = data['solution']
 
     def save_game(self):
         pass
@@ -103,7 +107,9 @@ class Board:
                 as 0.
         """
         for key in self.sudoku_board:
-            self.sudoku_board[key] = f'{values[self.rows.index(key[0])][int(key[1])-1]}'
+            row = self.rows.index(key[0])
+            col = int(key[1])-1
+            self.sudoku_board[key] = f'{values[row][col]}'
 
     def set_solution(self, values: list[list]) -> None:
         """Set the solution values.
@@ -112,7 +118,9 @@ class Board:
             values: A 9x9 2D array of ints 1-9.
         """
         for key in self.solution:
-            self.solution[key] = f'{values[self.rows.index(key[0])][int(key[1])-1]}'
+            row = self.rows.index(key[0])
+            col = int(key[1])-1
+            self.solution[key] = f'{values[row][col]}'
 
     def get_state(self) -> dict:
         """Return the current tile values and solution.
@@ -121,7 +129,7 @@ class Board:
         to self.sudoku_board and self.solution respectively. Returned dicts
         are the boards own objects, not copies.
         """
-        return {"values": self.sudoku_board, "solution": self.solution}
+        return {'values': self.sudoku_board, 'solution': self.solution}
 
     def write_tile(self, coord: str, value: str) -> None:
         """Write a value to a tile.
@@ -140,17 +148,19 @@ class Board:
         Args:
             coord: The coordinate of the tile (e.g., 'A1').
         """
-        self.sudoku_board[coord] = "0"
+        self.sudoku_board[coord] = '0'
 
     def is_solved(self) -> bool:
         """Returns True if every tile matches the solution, else False."""
         return self.sudoku_board == self.solution
-    
 
-def _create_game_data(init_type: str = "dosuku") -> Board: # TODO: Alternate data creation methods.
+
+def _create_game_data(init_type: str = 'dosuku') -> Board:
+    # TODO: Alternate data creation methods.
     """Create game save data.
 
-    Creates a board populated with new data. Data generation methods are currently limited to dosuku API.
+    Creates a board populated with new data. Data generation methods
+    are currently limited to dosuku API.
 
     Args:
         init_type: Represents the desired creation method.
@@ -159,8 +169,8 @@ def _create_game_data(init_type: str = "dosuku") -> Board: # TODO: Alternate dat
         A Board whose values and solution are newly generated.
     """
     ret_board = Board()
-    if init_type == "dosuku":
-        url_api = "https://sudoku-api.vercel.app/api/dosuku"
+    if init_type == 'dosuku':
+        url_api = 'https://sudoku-api.vercel.app/api/dosuku'
         query = {'query': '{newboard(limit:1){grids{value,solution}}}'}
         r = requests.get(url_api, params=query)
         data = r.json()
