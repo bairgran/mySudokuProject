@@ -58,7 +58,7 @@ class Sudoku:
         
         Loads the puzzle and solution data from SAVE_FILE into self.board.
         """
-        with open(SAVE_FILE, 'r') as f:
+        with open(SAVE_FILE, 'r', encoding='utf-8') as f:
             data = json.loads(f.read())
             self.board.sudoku_board = data['values']
             self.board.solution = data['solution']
@@ -187,5 +187,5 @@ def _write_to_save(board_state: Board) -> None:
     Args:
         board_state: Board whos state is written to SAVE_FILE.
     """
-    with open(SAVE_FILE, 'w') as f:
+    with open(SAVE_FILE, 'w', encoding='utf-8') as f:
         json.dump(board_state.get_state(), f, indent=4)
