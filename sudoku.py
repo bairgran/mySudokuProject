@@ -91,13 +91,15 @@ class Board:
             Formatted identical to sudoku_board.
     """
 
+    _ROWS = 'ABCDEFGHI'
+    _COLS = '123456789'
+    _EMPTY_TILE = '0'
+    _TILE_VALUES = '123456789'
+
     def __init__(self):
         """Initialize the board with every tile and solution value empty."""
-        self.rows = 'ABCDEFGHI'
-        self.cols = '123456789'
         self.sudoku_board = {r+c:'0' for r in self.rows for c in self.cols}
         self.solution = self.sudoku_board.copy()
-
 
     def set_board(self, values: list[list]) -> None:
         """Set the current tile values.
