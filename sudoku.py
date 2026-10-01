@@ -98,7 +98,7 @@ class Board:
 
     def __init__(self):
         """Initialize the board with every tile and solution value empty."""
-        self.sudoku_board = {r+c:'0' for r in self.rows for c in self.cols}
+        self.sudoku_board = {r+c:Board._EMPTY_TILE for r in Board._ROWS for c in Board._COLS}
         self.solution = self.sudoku_board.copy()
 
     def set_board(self, values: list[list]) -> None:
@@ -109,7 +109,7 @@ class Board:
                 as 0.
         """
         for key in self.sudoku_board:
-            row = self.rows.index(key[0])
+            row = Board._ROWS.index(key[0])
             col = int(key[1])-1
             self.sudoku_board[key] = f'{values[row][col]}'
 
@@ -120,7 +120,7 @@ class Board:
             values: A 9x9 2D array of ints 1-9.
         """
         for key in self.solution:
-            row = self.rows.index(key[0])
+            row = Board._ROWS.index(key[0])
             col = int(key[1])-1
             self.solution[key] = f'{values[row][col]}'
 
@@ -150,7 +150,7 @@ class Board:
         Args:
             coord: The coordinate of the tile (e.g., 'A1').
         """
-        self.sudoku_board[coord] = '0'
+        self.sudoku_board[coord] = Board._EMPTY_TILE
 
     def is_solved(self) -> bool:
         """Returns True if every tile matches the solution, else False."""
