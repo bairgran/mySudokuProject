@@ -82,10 +82,10 @@ class Board:
     """A 9x9 sudoku game board holding current tile and solution values.
 
     Attributes:
-        rows: A string of the row labels, 'ABCDEFGHI'.
-        cols: A digit string of the column labels, '123456789'.
-        sudoku_board: A dict mapping the coordinate of every tile to the
-            current value of that tile as a digit string (e.g., 'A1': '5').
+        sudoku_board: A dict mapping the coordinate string
+            (coord[0] = 'A'-'I', coord[1] = '1'-'9') of every tile to the
+            current value of that tile (value = '1'-'9')
+            as a digit string (e.g., 'A1': '5').
             Empty tiles are marked with '0'.
         solution: A dict mapping each tile coordinate to its solution value.
             Formatted identical to sudoku_board.
@@ -98,7 +98,8 @@ class Board:
 
     def __init__(self):
         """Initialize the board with every tile and solution value empty."""
-        self.sudoku_board = {r+c:Board._EMPTY_TILE for r in Board._ROWS for c in Board._COLS}
+        self.sudoku_board = {
+            r+c:Board._EMPTY_TILE for r in Board._ROWS for c in Board._COLS}
         self.solution = self.sudoku_board.copy()
 
     def set_board(self, values: list[list]) -> None:
