@@ -192,3 +192,15 @@ def _write_to_save(board_state: Board) -> None:
     """
     with open(SAVE_FILE, 'w', encoding='utf-8') as f:
         json.dump(board_state.get_state(), f, indent=4)
+
+
+class CoordinateError(ValueError):
+    """Coordinate input is invalid."""
+
+
+class TileError(ValueError):
+    """Tile input value is invalid."""
+
+
+class BoardFormatError(Exception):
+    """Container does not represent a properly formatted board."""
