@@ -176,6 +176,27 @@ class Board:
         if coordinate[1] not in Board._COLS:
             raise CoordinateError(f'{coordinate[1]} is an invalid COLUMN.')
 
+    def _validate_value(self, value: str, accept_empty: bool=True):
+        """Ensure value is valid.
+        
+        A valid value is a single digit string from '1'-'9' and possibly '0'.
+        
+        Args:
+            value: Single digit string to be validated.
+
+        Raises:
+            TileError: Value input is outside of the acceptable range.
+        """
+        if len(value) != 1:
+            raise TileError(f'{value} is not a single digit.')
+        if accept_empty:
+            accept = Board._EMPTY_TILE+Board._TILE_VALUES
+            if value not in accept:
+                raise TileError(f'{value} is not in {accept}.')
+        else:
+            if value not in Board._TILE_VALUES:
+                raise TileError(f'{value} is not in {Board._TILE_VALUES}.')
+
 
 def _create_game_data(init_type: str = 'dosuku') -> Board:
     # TODO: Alternate data creation methods.
