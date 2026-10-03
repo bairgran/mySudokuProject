@@ -157,6 +157,25 @@ class Board:
         """Returns True if every tile matches the solution, else False."""
         return self.sudoku_board == self.solution
 
+    def _validate_coordinate(self, coordinate: str):
+        """Ensure coordinate is valid.
+        
+        A valid coordinate is a 2 character string where str[0] in Board._ROWS
+        and str[1] in Board._COLS.
+
+        Args:
+            coordinate: The coordinate string to be validated.
+        
+        Raises:
+            CoordinateError: Coordinate input is not on the board.
+        """
+        if len(coordinate) != 2:
+            raise CoordinateError(f'{coordinate} is not 2 characters.')
+        if coordinate[0] not in Board._ROWS:
+            raise CoordinateError(f'{coordinate[0]} is an invalid ROW.')
+        if coordinate[1] not in Board._COLS:
+            raise CoordinateError(f'{coordinate[1]} is an invalid COLUMN.')
+
 
 def _create_game_data(init_type: str = 'dosuku') -> Board:
     # TODO: Alternate data creation methods.
