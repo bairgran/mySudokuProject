@@ -163,14 +163,23 @@ class Board:
         """
         return {'values': self._sudoku_board, 'solution': self._solution}
 
-    def write_tile(self, coord: str, value: str) -> None:
+    def write_tile(self, coord: str, value: str) -> bool:
         """Write a value to a tile.
 
         Args:
             coord: The coordinate of the tile (e.g., 'A1').
             value: The digit string to be written, '0'-'9'.
+        
+        Returns:
+            True on successful write, False on failure.
         """
-        self.sudoku_board[coord] = value
+        if (
+            not self._validate_coordinate(coord)
+            or not self._validate_value(value)
+        ):
+            return False
+        self._sudoku_board[coord] = value
+        return True
 
     def del_tile(self, coord: str) -> None:
         """Clear a tile.
