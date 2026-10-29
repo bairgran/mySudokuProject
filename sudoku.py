@@ -98,9 +98,38 @@ class Board:
 
     def __init__(self):
         """Initialize the board with every tile and solution value empty."""
-        self.sudoku_board = {
+        self._sudoku_board = {
             r+c:Board._EMPTY_TILE for r in Board._ROWS for c in Board._COLS}
-        self.solution = self.sudoku_board.copy()
+        self._solution = self._sudoku_board.copy()
+
+    def set_state(self, board: list[list[int]], sol: list[list[int]]) -> bool:
+        """Set the current board state.
+
+        Args:
+            board: A 9x9 2D array of ints 0-9. Empty tiles must be represented
+                as 0.
+            sol: A 9x9 2D array of ints 1-9.
+
+        Returns:
+            True on successful set, False on failure.
+        """
+        temp_board = {}
+        temp_solution = {}
+        for key in self._sudoku_board:
+            row = Board._ROWS.index(key[0])
+            col = int(key[1]-1)
+            value = str(board[row][col])
+            solution_value = str(sol[row][col])
+            if (
+                not self._validate_value(value, accept_empty=True)
+                or not self._validate_value(solution_value, accept_empty=False)
+            ):
+                return False
+            temp_board[key] = value
+            temp_solution[key] = solution_value
+        self._sudoku_board = temp_board
+        self._solution = temp_solution
+        return True
 
     def set_board(self, values: list[list]) -> None:
         """Set the current tile values.
@@ -109,10 +138,10 @@ class Board:
             values: A 9x9 2D array of ints 0-9. Empty tiles must be represented
                 as 0.
         """
-        for key in self.sudoku_board:
+        for key in self._sudoku_board:
             row = Board._ROWS.index(key[0])
             col = int(key[1])-1
-            self.sudoku_board[key] = f'{values[row][col]}'
+            self._sudoku_board[key] = f'{values[row][col]}'
 
     def set_solution(self, values: list[list]) -> None:
         """Set the solution values.
@@ -120,19 +149,19 @@ class Board:
         Args:
             values: A 9x9 2D array of ints 1-9.
         """
-        for key in self.solution:
+        for key in self._solution:
             row = Board._ROWS.index(key[0])
             col = int(key[1])-1
-            self.solution[key] = f'{values[row][col]}'
+            self._solution[key] = f'{values[row][col]}'
 
     def get_state(self) -> dict:
         """Return the current tile values and solution.
         
         Returned dict has two keys, 'values' and 'solution', mapping directly 
-        to self.sudoku_board and self.solution respectively. Returned dicts
+        to self._sudoku_board and self._solution respectively. Returned dicts
         are the boards own objects, not copies.
         """
-        return {'values': self.sudoku_board, 'solution': self.solution}
+        return {'values': self._sudoku_board, 'solution': self._solution}
 
     def write_tile(self, coord: str, value: str) -> None:
         """Write a value to a tile.
@@ -151,11 +180,11 @@ class Board:
         Args:
             coord: The coordinate of the tile (e.g., 'A1').
         """
-        self.sudoku_board[coord] = Board._EMPTY_TILE
+        self._sudoku_board[coord] = Board._EMPTY_TILE
 
     def is_solved(self) -> bool:
         """Returns True if every tile matches the solution, else False."""
-        return self.sudoku_board == self.solution
+        return self._sudoku_board == self._solution
 
     def _validate_coordinate(self, coordinate: str) -> bool:
         """Check for valid coordinate.
