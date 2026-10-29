@@ -157,45 +157,46 @@ class Board:
         """Returns True if every tile matches the solution, else False."""
         return self.sudoku_board == self.solution
 
-    def _validate_coordinate(self, coordinate: str):
-        """Ensure coordinate is valid.
+    def _validate_coordinate(self, coordinate: str) -> bool:
+        """Check for valid coordinate.
         
         A valid coordinate is a 2 character string where str[0] in Board._ROWS
         and str[1] in Board._COLS.
 
         Args:
             coordinate: The coordinate string to be validated.
-        
-        Raises:
-            CoordinateError: Coordinate input is not on the board.
-        """
-        if len(coordinate) != 2:
-            raise CoordinateError(f'{coordinate} is not 2 characters.')
-        if coordinate[0] not in Board._ROWS:
-            raise CoordinateError(f'{coordinate[0]} is an invalid ROW.')
-        if coordinate[1] not in Board._COLS:
-            raise CoordinateError(f'{coordinate[1]} is an invalid COLUMN.')
 
-    def _validate_value(self, value: str, accept_empty: bool=True):
-        """Ensure value is valid.
+        Returns:
+            True if coordinate meets requirements, False if not.
+        """
+        if (
+            len(coordinate) == 2
+            and coordinate[0] in Board._ROWS
+            and coordinate[1] in Board._COLS
+        ):
+            return True
+        return False
+
+    def _validate_value(self, value: str, accept_empty: bool=True) -> bool:
+        """Check for valid value.
         
-        A valid value is a single digit string from '1'-'9' and possibly '0'.
+        A valid value is a single digit string from '1'-'9'.
+        '0' is valid if accept_empty flag is True.
         
         Args:
             value: Single digit string to be validated.
+            accept_empty: optional bool for if '0' is valid or not.
 
-        Raises:
-            TileError: Value input is outside of the acceptable range.
+        Returns:
+            True if value is valid, False if not.
         """
-        if len(value) != 1:
-            raise TileError(f'{value} is not a single digit.')
-        if accept_empty:
-            accept = Board._EMPTY_TILE+Board._TILE_VALUES
-            if value not in accept:
-                raise TileError(f'{value} is not in {accept}.')
-        else:
-            if value not in Board._TILE_VALUES:
-                raise TileError(f'{value} is not in {Board._TILE_VALUES}.')
+        if (
+            len(value) == 1
+            and (value in Board._TILE_VALUES
+                 or (accept_empty and value in Board._EMPTY_TILE))
+        ):
+            return True
+        return False
 
 
 def _create_game_data(init_type: str = 'dosuku') -> Board:
