@@ -91,15 +91,15 @@ class Board:
             Formatted identical to sudoku_board.
     """
 
-    _ROWS = 'ABCDEFGHI'
-    _COLS = '123456789'
-    _EMPTY_TILE = '0'
-    _TILE_VALUES = '123456789'
+    ROWS = 'ABCDEFGHI'
+    COLS = '123456789'
+    EMPTY_TILE = '0'
+    TILE_VALUES = '123456789'
 
     def __init__(self):
         """Initialize the board with every tile and solution value empty."""
         self._sudoku_board = {
-            r+c:Board._EMPTY_TILE for r in Board._ROWS for c in Board._COLS}
+            r+c:Board.EMPTY_TILE for r in Board.ROWS for c in Board.COLS}
         self._solution = self._sudoku_board.copy()
 
     def set_state(self, board: list[list[int]], sol: list[list[int]]) -> bool:
@@ -116,7 +116,7 @@ class Board:
         temp_board = {}
         temp_solution = {}
         for key in self._sudoku_board:
-            row = Board._ROWS.index(key[0])
+            row = Board.ROWS.index(key[0])
             col = int(key[1]-1)
             value = str(board[row][col])
             solution_value = str(sol[row][col])
@@ -139,7 +139,7 @@ class Board:
                 as 0.
         """
         for key in self._sudoku_board:
-            row = Board._ROWS.index(key[0])
+            row = Board.ROWS.index(key[0])
             col = int(key[1])-1
             self._sudoku_board[key] = f'{values[row][col]}'
 
@@ -150,7 +150,7 @@ class Board:
             values: A 9x9 2D array of ints 1-9.
         """
         for key in self._solution:
-            row = Board._ROWS.index(key[0])
+            row = Board.ROWS.index(key[0])
             col = int(key[1])-1
             self._solution[key] = f'{values[row][col]}'
 
@@ -189,7 +189,7 @@ class Board:
         Args:
             coord: The coordinate of the tile (e.g., 'A1').
         """
-        self._sudoku_board[coord] = Board._EMPTY_TILE
+        self._sudoku_board[coord] = Board.EMPTY_TILE
 
     def is_solved(self) -> bool:
         """Returns True if every tile matches the solution, else False."""
@@ -209,8 +209,8 @@ class Board:
         """
         if (
             len(coordinate) == 2
-            and coordinate[0] in Board._ROWS
-            and coordinate[1] in Board._COLS
+            and coordinate[0] in Board.ROWS
+            and coordinate[1] in Board.COLS
         ):
             return True
         return False
@@ -230,8 +230,8 @@ class Board:
         """
         if (
             len(value) == 1
-            and (value in Board._TILE_VALUES
-                 or (accept_empty and value in Board._EMPTY_TILE))
+            and (value in Board.TILE_VALUES
+                 or (accept_empty and value in Board.EMPTY_TILE))
         ):
             return True
         return False
