@@ -155,13 +155,15 @@ class Board:
             self._solution[key] = f'{values[row][col]}'
 
     def get_state(self) -> dict:
-        """Return the current tile values and solution.
+        """Return a copy of the current tile values and solution.
         
-        Returned dict has two keys, 'values' and 'solution', mapping directly 
-        to self._sudoku_board and self._solution respectively. Returned dicts
-        are the boards own objects, not copies.
+        Returned dict has two keys, 'values' and 'solution', mapping
+        to self._sudoku_board and self._solution respectively.
         """
-        return {'values': self._sudoku_board, 'solution': self._solution}
+        return {
+            'values': self._sudoku_board.copy(),
+            'solution': self._solution.copy()
+        }
 
     def write_tile(self, coord: str, value: str) -> bool:
         """Write a value to a tile.
